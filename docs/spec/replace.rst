@@ -152,7 +152,7 @@ Specification
 *Postconditions*
 
 * The *oldVault*'s ``toBeReplacedTokens`` MUST be increased by ``tokenIncrease = min(btcAmount, vault.toBeIssuedTokens - vault.toBeRedeemedTokens)``. 
-* An amount of ``griefingCollateral * (tokenIncrease / btcAmount)`` MUST be locked by this transaction.
+* An amount of ``griefingCollateral * (tokenIncrease / btcAmount)`` MUST be locked in the :ref:`griefingCurrency` by the *oldVault* in this transaction.
 * The *oldVault*'s ``replaceCollateral`` MUST be increased by the amount of collateral locked in this transaction.
 
 .. _withdrawReplace:
@@ -290,7 +290,7 @@ Specification
 *Postconditions*
 
 * The :ref:`replaceTokens` function in the :ref:`vault-registry` MUST have been called, providing the ``oldVault``, ``newVault``, ``replaceRequest.amount``, and ``replaceRequest.collateral`` as arguments. 
-* The griefing collateral as specifified in the ``ReplaceRequest`` MUST be released to the *oldVault*.
+* The griefing collateral as specifified in the ``ReplaceRequest`` MUST be released back to *oldVault*'s free balance in the :ref:`griefingCurrency`.
 * The ``replaceRequest.status`` MUST be set to ``Completed``.
 
 .. _cancelReplace:
@@ -329,11 +329,9 @@ Specification
 * The :ref:`cancelReplaceTokens` function in the :ref:`vault-registry` MUST have been called, providing the ``oldVault``, ``newVault``, ``replaceRequest.amount``, and ``replaceRequest.amount`` as arguments. 
 * If *newVault* IS NOT liquidated:
 
-   * The griefing collateral MUST be slashed from the *oldVault* to the *newVault*'s ``backingCollateral``.
    * If unlocking ``replaceRequest.collateral`` does not put the collateralization rate of the *newVault* below ``SecureCollateralThreshold``, the collateral MUST be unlocked and its ``backingCollateral`` MUST decrease by the same amount.
-* If *newVault* IS liquidated:
 
-   * The griefing collateral MUST BE slashed from the *oldVault* to the *newVault*'s free balance.
+* The griefing collateral MUST BE slashed from the *oldVault* to the *newVault*'s free balance.
 * The ``replaceRequest.status`` MUST be set to ``Cancelled``.
 
 Events

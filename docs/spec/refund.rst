@@ -121,8 +121,7 @@ Specification
 *Postconditions*
 
 * The ``vault.issuedTokens`` MUST increase by ``fee``.
-* The :ref:`totalSupply` in the :ref:`treasury-module` MUST increase by ``fee``.
-* The vault's free balance in the :ref:`treasury-module` MUST increase by ``fee``.
+* The vault's free balance in wrapped currency MUST increase by ``fee``.
 * ``refundRequest.completed`` MUST be ``true``.
 
 

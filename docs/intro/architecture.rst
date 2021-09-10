@@ -16,7 +16,7 @@ There are four main participant roles in the system. A high-level overview of al
 - **Users**: Users interact with the BTC Parachain to create, use (trade/transfer/...), and redeem Bitcoin-backed interBTC tokens. Since the different protocol phases can be executed by different users, we introduce the following *sub-roles*:
 
   - **Requester**: A user that locks BTC with a vault on Bitcoin and issues interBTC on the BTC Parachain. Interacts with the :ref:`issue-protocol` module.
-  - **Sender** and **Receiver**: A user (Sender) that sends interBTC to another user (Receiver) on the BTC Parachain. Interacts with the :ref:`treasury-module` module. 
+  - **Sender** and **Receiver**: A user (Sender) that sends interBTC to another user (Receiver) on the BTC Parachain. Interacts with the :ref:`currency` module. 
   - **Redeemer**: A user that destroys interBTC on the BTC Parachain to receive the corresponding amount of BTC on the Bitcoin blockchain from a Vault. Interacts with the :ref:`redeem-protocol` module. 
 
 - **Governance Mechanism**: The Parachain Governance Mechanism monitors the correct operation of the BTC Parachain. Interacts with the :ref:`security` module and can manually update the parameterization of all components in the BTC Parachain.

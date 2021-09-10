@@ -78,32 +78,39 @@ Griefing Fees
 -------------
 
 Griefing collateral is locked on :ref:`requestIssue` and :ref:`requestReplace` to prevent :ref:`griefing`.
-If the requests are indeed cancelled, the griefing collateral is paid to the Vault that locked collateral in vain. On successful execute, the griefing collateral is refunded to the party making the request.
-Griefing collateral uses the currency of the transaction fees, i.e., `DOT`.
+If the requests are indeed cancelled, the griefing collateral is paid to the free balance of the Vault that locked collateral in vain. On successful execute, the griefing collateral is refunded to the party making the request.
 
 - **Issue Griefing Collateral**: A relative collateral locked based on the requested interBTC paid in `DOT`, for the current parameterization see :ref:`issueGriefingCollateral`
 - **Replace Griefing Collateral**: A relative collateral locked based on the request interBTC paid in `DOT`, for the current parameterization see :ref:`replaceGriefingCollateral`
+
+
+.. _griefingCurrency:
+
+Griefing Collateral Currency
+............................
+
+The currency that is used for griefing collateral used for issue and replace. This value is set to the currency of the transaction fees, i.e., `DOT`, regardless of the vault's configured backing collateral currency.
 
 Premium Redeem Fee
 ------------------
 
 When Vaults are below the :ref:`premiumCollateralThreshold`, users are able to redeem with the Vault and receive an extra "bonus" slashed from the Vault's collateral. This mechanism is to ensure that (1) Vaults have a higher incentive to stay above the :ref:`premiumCollateralThreshold` and (2) users have an additional incentive to redeem with Vaults that are close to the :ref:`liquidationThreshold`.
 
-- **Premium Redeem Fee**: A relative fee slashed from the Vault's collateral paid to the user in `COL` if a Vault is below the :ref:`premiumCollateralThreshold`, for the current parameterization see :ref:`premiumRedeemFee`
+- **Premium Redeem Fee**: A relative fee slashed from the Vault's collateral paid to the user in the vault's `COL` if a Vault is below the :ref:`premiumCollateralThreshold`, for the current parameterization see :ref:`premiumRedeemFee`
 
 Punishment Fees
 ---------------
 
 Punishment fees are slashed from the Vault's collateral on failed redeems. A user can choose to either retry with another Vault or reimburse the `interBTC` amount. In both cases, the a punishment fee is deducted from the Vault's collateral to ensure that Vault's are punished in both cases.
 
-- **Punishment Fee**: A relative fee slashed from the Vault's collateral paid to the user in `COL` if a Vault failed to execute a redeem request, for the current parameterization see :ref:`punishmentFee`
+- **Punishment Fee**: A relative fee slashed from the Vault's collateral paid to the user in the vault's `COL` if a Vault failed to execute a redeem request, for the current parameterization see :ref:`punishmentFee`
 
 Theft Fee
 ---------
 
 Relayers receive a reward for reporting Vaults for committing theft (see :ref:`reportVaultTheft` and :ref:`reportVaultDoublePayment`).
 
-- **Theft Fee**: A relative fee slashed form the Vault's collateral paid to the Relayer in `COL` if a Vault commits theft, for the current parameterization see :ref:`theftFee`
+- **Theft Fee**: A relative fee slashed form the Vault's collateral paid to the Relayer in the vault's `COL` if a Vault commits theft, for the current parameterization see :ref:`theftFee`
 
 
 Arbitrage

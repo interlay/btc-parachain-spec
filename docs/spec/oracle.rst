@@ -147,6 +147,35 @@ Specification
 * MUST return the fixed point value for the given key.
 
 
+.. _convert:
+
+convert
+--------
+
+Converts the given amount to the given currency.
+
+Specification
+.............
+
+*Function Signature*
+
+``convert(amount, currencyId)``
+
+*Parameters*
+
+* ``amount``: the amount to convert
+* ``currencyId``: the currency to convert to
+
+*Preconditions*
+
+* Exactly one of ``amount.currencyId`` and the ``currencyId`` argument MUST be the wrapped currency.
+* Exactly one of ``amount.currencyId`` and the ``currencyId`` argument MUST be a collateral currency.
+
+*Postconditions*
+
+* MUST return ``amount`` converted to ``currencyId``.
+
+
 .. _oracle_onInitialize:
 
 onInitialize

@@ -23,6 +23,7 @@ Welcome to the interBTC Technical Specification!
 
   spec/btc-relay/index
   spec/collateral
+  spec/currency
   spec/fee
   spec/oracle
   spec/issue

@@ -191,20 +191,20 @@ Let ``burnedTokens`` be ``amountWrapped`` minus the result of the multiplication
 liquidationRedeem
 -----------------
 
-A user executes a liquidation redeem that exchanges interBTC for DOT from the `LiquidationVault`. The 1:1 backing is being recovered, hence this function burns interBTC without releasing any BTC. 
+A user executes a liquidation redeem that exchanges interBTC for collateral from the `LiquidationVault`. This function takes a ``currencyId`` argument that specifies which currency to the user wishes to receive. Since each currency uses a separate liquidation vault, the amount of collateral received depends only on the amount of tokens and collateral in that specific liquidation vault. If the user wants to obtain multiple currencies, they have to call this function multiple times, possibly through off-chain aggregation via batching. Since the 1:1 backing is being recovered in this function, interBTC is burned without releasing any BTC.  
 
 Specification
 .............
 
 *Function Signature*
 
-``liquidationRedeem(redeemer, amountWrapped)``
+``liquidationRedeem(redeemer, amountWrapped, currencyId)``
 
 *Parameters*
 
 * ``redeemer``: address of the user triggering the redeem.
 * ``amountWrapped``: the amount of interBTC to destroy.
-
+* ``currencyId``: the currency id of the funds to be received.
 
 *Events*
 
@@ -219,7 +219,7 @@ Specification
 *Postconditions*
 
 * ``amountWrapped`` tokens MUST be burned from the user.
-* :ref:`redeemTokensLiquidation` MUST be called with ``redeemer`` and ``amountWrapped`` as arguments.
+* :ref:`redeemTokensLiquidation` MUST be called with ``currency_id``, ``redeemer`` and ``amountWrapped`` as arguments.
 
 .. _executeRedeem:
 

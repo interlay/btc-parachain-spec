@@ -15,7 +15,7 @@ Step-by-step
 
 #. Vaults may opt in to Nomination, expanding the total possible issuance amount.
 #. The maximum amount that can be nominated is bounded by the Vault's locked collateral.
-#. Nominators select one or more Vaults and lock their collateral balance on the BTC Parachain.
+#. Nominators select one or more Vaults and lock their collateral balance on the BTC Parachain. The used currency for each nomination is determined by the vault's collateral currency. If a nominator is nominating different vaults, a different currency can be used for each vault, i.e., a nominator is not limited to a single currency.
 #. Nominators can go offline and their nominated collateral will generate rewards passively.
 #. Vaults and Nominators can withdraw their collateral at any point subject to the ``SecureCollateralThreshold``.
 #. Upon liquidation, Nominators are returned some collateral after remaining requests have been executed.
@@ -46,6 +46,7 @@ Vault Nomination Protocol
 #. Vault replacement is disallowed with nominated collateral. Otherwise, Security Assumptions 1 and 2 would be violated.
 #. The nominated collateral:
 
+   #. Is in the vault's collateral currency,
    #. Cannot be withdrawn by the Vault,
    #. Is locked on the parachain,
    #. Is capped at a fraction of the Vault’s deposited collateral (:ref:`maxNominationRatio`) to bound the risk for both Vaults and Nominators. 
@@ -305,12 +306,13 @@ Specification
 * :ref:`nominationEnabled` MUST be true.
 * A Vault with id ``vaultId`` MUST be registered.
 * A Vault with id ``vaultId`` MUST exist in the ``Vaults`` mapping.
+* The nominator's free balance in the vault's used currency MUST be at least `amount`.
 * The Vault MUST remain below the max nomination ratio.
 
 *Postconditions*
 
 * The Vault's backing collateral MUST increase by the amount nominated.
-* The Nominator's balance MUST decrease by the amount nominated.
+* The Nominator's balance in the vault's ``currencyId`` MUST decrease by the amount nominated.
 
 .. _withdrawNominationCollateral:
 
@@ -343,12 +345,12 @@ Specification
 * A Vault with id ``vaultId`` MUST be registered.
 * A Vault with id ``vaultId`` MUST exist in the ``Vaults`` mapping.
 * The Vault MUST remain above the secure collateralization threshold.
-* Nominator MUST have a nomination (including slashes) of at least ``amount``.
+* Nominator MUST have a nomination with the given vault (including slashes) of at least ``amount``.
 
 *Postconditions*
 
-* The Vault's collateral MUST decrease by the amount nominated.
-* The Nominator's balance MUST increase by the amount nominated.
+* The Vault's collateral MUST decrease by ``amount``.
+* The Nominator's balance in the vault's ``currencyId`` MUST increase by ``amount``.
 
 
 Events
