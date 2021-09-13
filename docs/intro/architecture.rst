@@ -118,11 +118,27 @@ The Governance Mechanism handles correct operation of the BTC Parachain.
 Interactions
 ~~~~~~~~~~~~
 
-We provide a detailed overview of the function calls between the different modules in :numref:`fig-interactions`.
+Dependency Graph
+----------------
 
-.. _fig-interactions:
+We provide a dependency graph of the different pallets in :numref:`fig-dependency-graph`. Note that for clarity, dependencies that are already implied by transitivity are not displayed. That is, if ``a -> b``, ``b -> c`` and ``a -> b``, we do not show a dependency ``a -> c`` even when it is an explicit dependency in the implementation.
 
-.. figure:: ../figures/intro/detailed-architecture.png
-    :alt: detailed architecture diagram
+.. _fig-dependency-graph:
 
-    Detailed architecture of the BTC Parachain, showing all actors, components and their interactions.
+.. figure:: ../figures/intro/pallet-dependencies.png
+    :alt: Palletdependency graph
+
+    Pallet dependency graph
+
+External Interactions
+---------------------
+
+We provide an overview in :numref:`fig-dispatchable-functions` of the main ways that different actors interact with the parachain. Note that we only include the function calls that have side effects, i.e., that write to storage. Also, some calls that are not central to the main protocol are omitted to keep the overview clear. The pallets are displayed in the center column, while the various actors surround it in yellow. 
+
+
+.. _fig-dispatchable-functions:
+
+.. figure:: ../figures/intro/dispatchable-functions.png
+    :alt: overview of interactions of different actors with the parachain
+
+    Overview of interactions of different actors with the parachain.
